@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Room } from '../models/room.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +29,7 @@ export class RoomService {
 
     // Get room image URL (served from public endpoint - no auth required)
     getRoomImageUrl(roomId: number): string {
-        return `http://localhost:8080/public/rooms/${roomId}/image`;
+        return `${environment.apiUrl}/public/rooms/${roomId}/image`;
     }
+
 }

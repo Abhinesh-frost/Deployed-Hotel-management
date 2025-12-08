@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AdminService {
 
-    // ✅ FIXED: Full backend API URL
-    private baseUrl = 'http://localhost:8080/admin';
+    // Using environment variable for API URL
+    private baseUrl = `${environment.apiUrl}/admin`;
+
 
     constructor(private http: HttpClient) { }
 
@@ -65,8 +67,9 @@ export class AdminService {
     }
 
     getRoomImageUrl(roomId: number): string {
-        return `http://localhost:8080/public/rooms/${roomId}/image`;
+        return `${environment.apiUrl}/public/rooms/${roomId}/image`;
     }
+
 
     deleteRoom(id: number): Observable<void> {
         return this.http.delete<void>(`${this.baseUrl}/rooms/${id}`, {

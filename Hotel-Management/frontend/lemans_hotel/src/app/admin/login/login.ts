@@ -19,7 +19,8 @@ export class Login {
 
   onSubmit() {
     // For now, simple mock login or use existing auth service
-    // Assuming backend is at localhost:8080 as per plan
+    // Backend URL is configured via environment variables for cloud deployment
+
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
         // Check if role is admin (if applicable)
