@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { adminRedirectGuard } from './guards/admin-redirect.guard';
 
 export const routes: Routes = [
     {
@@ -9,12 +10,12 @@ export const routes: Routes = [
     {
         path: 'home',
         loadComponent: () => import('./home/home').then(m => m.Home),
-        canActivate: [authGuard]
+        canActivate: [authGuard, adminRedirectGuard]
     },
     {
         path: 'rooms',
         loadComponent: () => import('./rooms/rooms').then(m => m.Rooms),
-        canActivate: [authGuard]
+        canActivate: [authGuard, adminRedirectGuard]
     },
     {
         path: 'suites',
@@ -47,7 +48,7 @@ export const routes: Routes = [
     {
         path: 'my-bookings',
         loadComponent: () => import('./my-bookings/my-bookings').then(m => m.MyBookings),
-        canActivate: [authGuard]
+        canActivate: [authGuard, adminRedirectGuard]
     },
     {
         path: 'forgot-password',

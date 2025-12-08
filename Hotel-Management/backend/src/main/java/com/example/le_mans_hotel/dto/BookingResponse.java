@@ -16,5 +16,7 @@ public class BookingResponse {
     private BookingStatus status;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
+    private String userName;
+    private String userEmail;
 
 }

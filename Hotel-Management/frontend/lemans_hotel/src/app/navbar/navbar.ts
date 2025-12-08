@@ -24,15 +24,20 @@ export class Navbar implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.checkVisibility(event.url);
+      // Update admin status on navigation change
+      this.isAdmin = this.authService.getRole() === 'ADMIN';
     });
     // Initial check
     this.checkVisibility(this.router.url);
+    // Initial admin check
+    this.isAdmin = this.authService.getRole() === 'ADMIN';
   }
 
   checkVisibility(url: string) {
     // Hide navbar on landing, login, signup, forgot-password, and admin pages
     this.showNavbar = url !== '/' && !url.includes('/login') && !url.includes('/signup') && !url.includes('/forgot-password') && !url.includes('/admin');
   }
+
 
   logout() {
     this.authService.logout();

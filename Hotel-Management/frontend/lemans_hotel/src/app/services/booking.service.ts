@@ -31,7 +31,10 @@ export interface BookingResponse {
         pricePerPerson: number;
         description?: string;
     };
+    userName?: string;
+    userEmail?: string;
 }
+
 
 @Injectable({
     providedIn: 'root'

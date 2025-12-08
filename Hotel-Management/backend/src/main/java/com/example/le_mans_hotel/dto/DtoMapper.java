@@ -21,7 +21,10 @@ public class DtoMapper {
                 .status(booking.getBookingStatus())
                 .checkInDate(booking.getCheckInDate())
                 .checkOutDate(booking.getCheckOutDate())
+                .userName(booking.getUser().getName())
+                .userEmail(booking.getUser().getEmail())
                 .build();
+
     }
 
     // ---- Room ----

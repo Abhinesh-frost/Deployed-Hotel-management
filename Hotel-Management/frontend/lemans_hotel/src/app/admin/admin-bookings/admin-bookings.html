@@ -40,10 +40,15 @@
                     <td>#{{ booking.id }}</td>
                     <td>
                         <div class="guest-info">
-                            <span class="guest-count">{{ booking.noOfPerson }} Guests</span>
-                            <span class="total-cost">${{ booking.totalCost }}</span>
+                            <div class="user-details">
+                                <span class="user-name">👤 {{ booking.userName || 'Unknown' }}</span>
+                                <span class="user-email">✉️ {{ booking.userEmail || 'N/A' }}</span>
+                            </div>
+                            <span class="guest-count">👥 {{ booking.noOfPerson }} Guests</span>
+                            <span class="total-cost">💰 ${{ booking.totalCost }}</span>
                         </div>
                     </td>
+
                     <td>
                         <div class="room-info">
                             <span class="room-type">🏨 {{ booking.room.roomType || 'N/A' }}</span>
