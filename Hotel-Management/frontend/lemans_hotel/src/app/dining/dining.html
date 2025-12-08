@@ -1,0 +1,47 @@
+<div class="dining-container">
+    <header class="page-header">
+        <div class="header-content-page">
+            <h1> Fine Dining</h1>
+            <p>A World of Flavors Awaits</p>
+        </div>
+    </header>
+
+    <section class="intro-section">
+        <div class="intro-content">
+            <h2>Culinary Excellence</h2>
+            <p>Embark on a gastronomic journey with our award-winning restaurants. From the romantic streets of Paris to
+                the vibrant spices of India, our chefs curate unforgettable dining experiences.</p>
+        </div>
+    </section>
+
+    <section class="cuisines-grid">
+        @for (cuisine of cuisines; track cuisine.name) {
+        <div class="cuisine-card">
+            <div class="cuisine-image">
+                <img [src]="getImageUrl(cuisine.image)" [alt]="cuisine.name + ' Cuisine'">
+                <div class="cuisine-overlay">
+                    <div class="cuisine-specialties">
+                        <h4>Signature Dishes</h4>
+                        <ul>
+                            @for (dish of cuisine.specialties; track dish) {
+                            <li>{{ dish }}</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="cuisine-content">
+                <div class="cuisine-header">
+                    <h3>{{ cuisine.restaurant }}</h3>
+                    <span class="cuisine-type">{{ cuisine.name }} Cuisine</span>
+                </div>
+                <p class="cuisine-description">{{ cuisine.description }}</p>
+            </div>
+        </div>
+        }
+    </section>
+
+    <div class="back-link">
+        <a routerLink="/home">← Back to Home</a>
+    </div>
+</div>

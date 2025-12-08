@@ -1,0 +1,47 @@
+<div class="admin-page-container">
+    <header class="page-header">
+        <button routerLink="/admin/dashboard" class="back-btn">← Back to Dashboard</button>
+        <h1>Add New Room</h1>
+    </header>
+    <div class="form-card">
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Room Type</label>
+                <select id="type" [(ngModel)]="room.type" name="type" required>
+                    <option value="Royal Suite">Royal Suite</option>
+                    <option value="Deluxe Suite">Deluxe Suite</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                    <option value="Standard Room">Standard Room</option>
+                    <option value="Family Room">Family Room</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">Price per Night ($)</label>
+                <input type="number" id="price" [(ngModel)]="room.price" name="price" required placeholder="e.g. 500">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" [(ngModel)]="room.description" name="description" rows="4" required
+                    placeholder="Room description (min 10 characters)..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">Room Image</label>
+                <div class="file-upload-wrapper">
+                    <input type="file" id="image" accept="image/*" (change)="onFileSelected($event)" class="file-input"
+                        #fileInput>
+                    <button type="button" class="file-upload-btn" (click)="fileInput.click()">
+                        📷 Choose Image
+                    </button>
+                    <span class="file-name">{{ selectedFileName || 'No file chosen' }}</span>
+                </div>
+                @if (imagePreview) {
+                <div class="image-preview">
+                    <img [src]="imagePreview" alt="Room preview">
+                    <button type="button" class="remove-image-btn" (click)="removeImage()">✕</button>
+                </div>
+                }
+            </div>
+            <button type="submit" class="submit-btn" [disabled]="!isFormValid()">Add Room</button>
+        </form>
+    </div>
+</div>

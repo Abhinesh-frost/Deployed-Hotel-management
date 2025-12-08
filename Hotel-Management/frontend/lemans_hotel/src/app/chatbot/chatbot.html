@@ -1,0 +1,30 @@
+<div class="chatbot-container" [class.open]="isOpen">
+    <div class="chat-toggle" (click)="toggleChat()">
+        <span class="icon" *ngIf="!isOpen">💬</span>
+        <span class="icon" *ngIf="isOpen">✕</span>
+    </div>
+    <div class="chat-window" *ngIf="isOpen">
+        <div class="chat-header">
+            <h3>Concierge AI</h3>
+            <p>How can I assist you?</p>
+        </div>
+        <div class="chat-messages" #scrollContainer>
+            <div class="message" *ngFor="let msg of messages" [class.user]="msg.sender === 'user'"
+                [class.bot]="msg.sender === 'bot'">
+                <div class="message-content">
+                    {{ msg.text }}
+                </div>
+                <div class="message-time">
+                    {{ msg.time | date:'shortTime' }}
+                </div>
+            </div>
+            <div class="typing-indicator" *ngIf="isTyping">
+                <span>.</span><span>.</span><span>.</span>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message...">
+            <button (click)="sendMessage()">➤</button>
+        </div>
+    </div>
+</div>

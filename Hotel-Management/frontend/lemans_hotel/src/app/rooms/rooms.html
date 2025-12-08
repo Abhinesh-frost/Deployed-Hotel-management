@@ -1,0 +1,72 @@
+<div class="rooms-container">
+    <header class="rooms-header">
+        <div class="header-content">
+            <h1>Our Luxurious Rooms</h1>
+            <p>Experience comfort and elegance in every detail</p>
+        </div>
+    </header>
+
+    @if (loading) {
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading our finest accommodations...</p>
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="error-container">
+        <p class="error-message">{{ errorMessage }}</p>
+        <p class="debug-info">{{ debugInfo }}</p>
+        <button (click)="loadRooms()" class="retry-btn">Retry</button>
+    </div>
+    }
+
+    @if (!loading && !errorMessage) {
+    <div class="rooms-grid">
+        @for (room of rooms; track room.id) {
+        <div class="room-card">
+            <div class="room-image-container">
+                <img [src]="getRoomImageUrl(room.id)" [alt]="room.roomType" class="room-image"
+                    (error)="onImageError($event)">
+                <div class="room-overlay">
+                    <span class="room-type-badge">{{ room.roomType }}</span>
+                </div>
+            </div>
+            <div class="room-details">
+                <h3 class="room-type">{{ room.roomType }}</h3>
+                @if (room.description) {
+                <p class="room-description">{{ room.description }}</p>
+                }
+                <div class="room-footer">
+                    <div class="price-section">
+                        <span class="price">${{ room.price }}</span>
+                        <span class="per-night">/ night</span>
+                    </div>
+                    <button (click)="bookRoom(room.id)" class="book-btn">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    }
+
+    @if (!loading && !errorMessage && rooms.length === 0) {
+    <div class="empty-state">
+        <h2>No Rooms Available</h2>
+        <p>Please check back later for available accommodations.</p>
+    </div>
+    }
+
+    <!-- Step 1: Cuisine Selection Modal -->
+    <app-cuisine-selection-modal [isOpen]="showCuisineModal" [roomId]="selectedRoomId"
+        (closeModal)="closeCuisineModal()" (cuisineSelected)="onCuisineSelected($event)">
+    </app-cuisine-selection-modal>
+
+    <!-- Step 2: Booking Modal -->
+    <app-booking-modal [isOpen]="showBookingModal" [roomId]="selectedRoomId" [dishId]="selectedCuisine?.id ?? null"
+        [cuisineName]="selectedCuisine?.name ?? ''" [bookingType]="'room'" (closeModal)="closeBookingModal()"
+        (bookingSuccess)="onBookingSuccess()">
+    </app-booking-modal>
+</div>

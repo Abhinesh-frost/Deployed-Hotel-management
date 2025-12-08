@@ -1,0 +1,448 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(15, 15, 35, 0.98) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #1e1e2f 0%, #151524 100%);
+    padding: 2.5rem;
+    border-radius: 24px;
+    width: 92%;
+    max-width: 540px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(212, 175, 55, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    animation: modalAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-family: 'Lora', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #ffffff 0%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+    transform: rotate(90deg);
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+/* ======================= */
+/*   PREMIUM DATE PICKER   */
+/* ======================= */
+
+.date-input-wrapper {
+    position: relative;
+}
+
+.date-input-wrapper input[type="date"] {
+    width: 100%;
+    padding: 1.1rem 1.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+}
+
+.date-input-wrapper input[type="date"]:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.date-input-wrapper input[type="date"]:focus {
+    border-color: #d4af37;
+    outline: none;
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.15),
+        0 8px 24px rgba(212, 175, 55, 0.15);
+    background: linear-gradient(145deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+}
+
+/* WebKit Date Picker Styling */
+.date-input-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    filter: none;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.date-input-wrapper input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+/* Firefox Date Input */
+.date-input-wrapper input[type="date"]::-moz-calendar-picker-indicator {
+    background: #d4af37;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+/* Date input text color fix for webkit */
+.date-input-wrapper input[type="date"]::-webkit-datetime-edit {
+    color: #ffffff;
+}
+
+.date-input-wrapper input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    color: #ffffff;
+}
+
+.date-input-wrapper input[type="date"]::-webkit-datetime-edit-text {
+    color: rgba(212, 175, 55, 0.8);
+    padding: 0 0.3em;
+}
+
+.date-input-wrapper input[type="date"]::-webkit-datetime-edit-month-field,
+.date-input-wrapper input[type="date"]::-webkit-datetime-edit-day-field,
+.date-input-wrapper input[type="date"]::-webkit-datetime-edit-year-field {
+    color: #ffffff;
+}
+
+/* ========================= */
+/*   PERSONS INPUT STYLING   */
+/* ========================= */
+
+.persons-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.persons-input-wrapper:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.persons-input-wrapper:focus-within {
+    border-color: #d4af37;
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.15),
+        0 8px 24px rgba(212, 175, 55, 0.15);
+}
+
+.person-btn {
+    width: 56px;
+    height: 56px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: #d4af37;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.person-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a2e;
+}
+
+.person-btn:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.person-btn:disabled {
+    color: rgba(255, 255, 255, 0.2);
+    cursor: not-allowed;
+}
+
+.person-btn.minus {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.person-btn.plus {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.persons-input-wrapper input[type="number"] {
+    flex: 1;
+    text-align: center;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: transparent;
+    padding: 1rem;
+    -moz-appearance: textfield;
+    font-family: 'Lora', serif;
+}
+
+.persons-input-wrapper input[type="number"]::-webkit-outer-spin-button,
+.persons-input-wrapper input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.person-hint {
+    font-size: 0.8rem;
+    color: #d4af37;
+    margin: 0.6rem 0 0 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.person-hint::before {
+    content: '💡';
+    font-size: 0.9rem;
+}
+
+.selected-cuisine {
+    margin: 0.75rem 0 0 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(212, 175, 55, 0.1);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #d4af37;
+}
+
+.selected-cuisine strong {
+    color: #d4af37;
+}
+
+/* ================= */
+/*   FORM ACTIONS    */
+/* ================= */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cancel-btn {
+    padding: 1rem 1.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+.submit-btn {
+    padding: 1rem 2.2rem;
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e5c255 0%, #d4af37 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.45);
+}
+
+.submit-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* =================== */
+/*   SUCCESS MESSAGE   */
+/* =================== */
+
+.success-message {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.success-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: successPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.success-message h3 {
+    color: #2ecc71;
+    font-family: 'Lora', serif;
+    font-size: 1.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.success-message p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+}
+
+@keyframes successPop {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.3) rotate(10deg);
+    }
+
+    70% {
+        transform: scale(0.9) rotate(-5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* ============== */
+/*   RESPONSIVE   */
+/* ============== */
+
+@media (max-width: 540px) {
+    .modal-content {
+        padding: 1.8rem;
+        margin: 1rem;
+        border-radius: 20px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .cancel-btn,
+    .submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .person-btn {
+        width: 50px;
+        height: 50px;
+    }
+}

@@ -1,0 +1,47 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Please enter your details to sign in.</p>
+      @if (errorMessage) {
+      <div class="error-banner">
+        {{ errorMessage }}
+      </div>
+      }
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email"
+          [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+        <span class="error-msg">Please enter a valid email.</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-input-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+            placeholder="Enter your password"
+            [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <button type="button" class="toggle-password" (click)="togglePassword()">
+            <span class="eye-icon">{{ showPassword ? '👁️' : '👁️‍🗨️' }}</span>
+          </button>
+        </div>
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+        <span class="error-msg">Password must be at least 6 characters.</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/forgot-password" class="forgot-password">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">Sign In</button>
+
+      <p class="signup-link">Don't have an account? <a routerLink="/signup">Sign up</a></p>
+    </form>
+  </div>
+</div>

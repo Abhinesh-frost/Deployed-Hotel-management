@@ -1,0 +1,114 @@
+<div class="bookings-container">
+    <header class="page-header">
+        <div class="header-content-page">
+            <h1>My Bookings</h1>
+            <p>View and Manage Your Reservations</p>
+        </div>
+    </header>
+
+    @if (loading) {
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading your bookings...</p>
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="error-container">
+        <p class="error-message">{{ errorMessage }}</p>
+        <button (click)="loadBookings()" class="retry-btn">Retry</button>
+    </div>
+    }
+
+    @if (!loading && !errorMessage) {
+    <div class="bookings-content">
+        @if (bookings.length === 0) {
+        <div class="empty-state">
+            <div class="empty-icon">📅</div>
+            <h2>No Bookings Yet</h2>
+            <p>You haven't made any reservations. Start exploring our luxurious rooms!</p>
+            <a routerLink="/rooms" class="explore-btn">Explore Rooms</a>
+        </div>
+        } @else {
+        <div class="bookings-grid">
+            @for (booking of bookings; track booking.id) {
+            <div class="booking-card">
+                <div class="booking-header">
+                    <div class="booking-id">
+                        <span class="label">Booking ID</span>
+                        <span class="value">#{{ booking.id }}</span>
+                    </div>
+                    <span class="booking-status" [ngClass]="getStatusClass(booking.bookingStatus)">
+                        {{ booking.bookingStatus }}
+                    </span>
+                </div>
+
+                <div class="booking-details">
+                    @if (booking.room) {
+                    <div class="detail-row">
+                        <span class="icon">🏨</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Room</span>
+                            <span class="detail-value">{{ booking.room.roomType }}</span>
+                        </div>
+                    </div>
+                    }
+
+                    @if (booking.dish) {
+                    <div class="detail-row">
+                        <span class="icon">🍽️</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Cuisine</span>
+                            <span class="detail-value">{{ booking.dish.cuisineName }}</span>
+                        </div>
+                    </div>
+                    }
+
+                    <div class="detail-row">
+                        <span class="icon">📅</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Check-in</span>
+                            <span class="detail-value">{{ booking.checkInDate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="icon">📅</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Check-out</span>
+                            <span class="detail-value">{{ booking.checkOutDate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="icon">👥</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Guests</span>
+                            <span class="detail-value">{{ booking.noOfPerson }} {{ booking.noOfPerson === 1 ? 'Person' :
+                                'Persons' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row total-cost">
+                        <span class="icon">💰</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Total Cost</span>
+                            <span class="detail-value">${{ booking.totalCost }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button (click)="downloadPDF(booking)" class="download-btn">
+                    <span class="icon">📥</span> Download Receipt
+                </button>
+            </div>
+            }
+        </div>
+        }
+    </div>
+    }
+
+    <div class="back-link">
+        <a routerLink="/home">← Back to Home</a>
+    </div>
+</div>

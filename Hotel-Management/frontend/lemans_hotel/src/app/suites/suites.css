@@ -1,0 +1,304 @@
+@import '../shared/home-header.css';
+
+/* =====================================
+   GLOBAL PAGE COLORS (Unified Theme)
+===================================== */
+:root {
+    --primary-dark: #0d1b2a;
+    --primary-soft: #1b263b;
+    --text-light: #e0e1dd;
+    --text-soft: #415a77;
+    --bg-light: #f4f6f9;
+    --accent-gold: #c0a062;
+}
+
+.suites-container {
+    padding-top: 0;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+}
+
+/* =====================================
+   PAGE HEADER (Specific to Suites)
+===================================== */
+.page-header {
+    background: linear-gradient(rgba(10, 20, 35, 0.7), rgba(10, 20, 35, 0.7)),
+        url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: var(--text-light);
+}
+
+.header-content-page h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.header-content-page p {
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+
+/* =====================================
+   INTRO SECTION
+===================================== */
+.intro-section {
+    padding: 4rem 2rem;
+    background-color: var(--bg-light);
+    text-align: center;
+}
+
+.intro-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.intro-content h2 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.intro-content p {
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    line-height: 1.8;
+}
+
+/* =====================================
+   SUITES GRID
+===================================== */
+.suites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.suite-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.suite-card:hover {
+    transform: translateY(-5px);
+}
+
+.suite-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.suite-header h3 {
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+    font-family: 'Playfair Display', serif;
+}
+
+.suite-size {
+    background-color: #e9edf3;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}
+
+.suite-description {
+    color: var(--text-soft);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.suite-features h4 {
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.suite-features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.suite-features li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.35rem;
+    color: var(--text-soft);
+    position: relative;
+}
+
+.suite-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-gold);
+}
+
+/* =====================================
+   DIFFERENTIATION SECTION
+===================================== */
+.differentiation-section {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.differentiation-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-family: 'Playfair Display', serif;
+    color: #ffffff;
+    /* Ensure high contrast */
+}
+
+.diff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.diff-item h3 {
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.diff-item p {
+    color: #e0e1dd;
+    /* Light text for dark background */
+    line-height: 1.6;
+}
+
+/* =====================================
+   VIEW ALL BUTTON
+===================================== */
+.view-all-container {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.view-all-btn {
+    background-color: var(--primary-dark);
+    padding: 1rem 3rem;
+    border-radius: 6px;
+    font-size: 1.2rem;
+
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+
+    transition: 0.3s;
+}
+
+.view-all-btn:hover {
+    background-color: var(--accent-gold);
+}
+
+/* =====================================
+   AMENITIES SECTION
+===================================== */
+.amenities-section {
+    background-color: var(--bg-light);
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.amenities-section h2 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 3rem;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.amenity-item {
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #dbe2ef;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.amenity-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-gold);
+}
+
+.amenity-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.amenity-item h4 {
+    font-size: 1.2rem;
+    color: var(--primary-dark);
+}
+
+.amenity-item p {
+    color: var(--text-soft);
+    font-size: 0.9rem;
+}
+
+/* =====================================
+   BACK LINK
+===================================== */
+.back-link {
+    padding: 2rem;
+    text-align: center;
+}
+
+.back-link a {
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.back-link a:hover {
+    color: var(--accent-gold);
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+@media (max-width: 768px) {
+    .header-content-page h1 {
+        font-size: 2.5rem;
+    }
+
+    .suites-grid {
+        grid-template-columns: 1fr;
+    }
+}

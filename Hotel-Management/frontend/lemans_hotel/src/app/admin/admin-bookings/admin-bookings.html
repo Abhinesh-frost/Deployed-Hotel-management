@@ -1,0 +1,101 @@
+<div class="admin-bookings-container">
+    <header class="page-header">
+        <div class="header-content">
+            <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+            <h1>Manage Bookings</h1>
+            <p>View and update all guest reservations</p>
+        </div>
+    </header>
+
+    @if (loading) {
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading bookings...</p>
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="error-container">
+        <p class="error-message">{{ errorMessage }}</p>
+        <button (click)="loadBookings()" class="retry-btn">Retry</button>
+    </div>
+    }
+
+    @if (!loading && !errorMessage) {
+    <div class="bookings-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Guest Details</th>
+                    <th>Room & Cuisine</th>
+                    <th>Dates</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (booking of bookings; track booking.id) {
+                <tr>
+                    <td>#{{ booking.id }}</td>
+                    <td>
+                        <div class="guest-info">
+                            <span class="guest-count">{{ booking.noOfPerson }} Guests</span>
+                            <span class="total-cost">${{ booking.totalCost }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="room-info">
+                            <span class="room-type">🏨 {{ booking.room.roomType || 'N/A' }}</span>
+                            <span class="cuisine-name">🍽️ {{ booking.dish.cuisineName || 'N/A' }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="date-info">
+                            <span>In: {{ booking.checkInDate }}</span>
+                            <span>Out: {{ booking.checkOutDate }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge" [class]="booking.bookingStatus.toLowerCase()">
+                            {{ booking.bookingStatus }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            @if (booking.bookingStatus === 'PENDING') {
+                            <button (click)="updateStatus(booking.id, 'CONFIRMED')" class="action-btn approve"
+                                title="Approve">
+                                ✅
+                            </button>
+                            <button (click)="updateStatus(booking.id, 'CANCELLED')" class="action-btn reject"
+                                title="Reject">
+                                ❌
+                            </button>
+                            }
+                            @if (booking.bookingStatus === 'CONFIRMED') {
+                            <button (click)="updateStatus(booking.id, 'CANCELLED')" class="action-btn reject"
+                                title="Cancel Booking">
+                                ❌
+                            </button>
+                            }
+                            @if (booking.bookingStatus === 'CHECKED_IN') {
+                            <button (click)="updateStatus(booking.id, 'CHECKED_OUT')" class="action-btn checkout"
+                                title="Check Out">
+                                👋 Out
+                            </button>
+                            }
+                        </div>
+                    </td>
+                </tr>
+                }
+                @if (bookings.length === 0) {
+                <tr>
+                    <td colspan="6" class="no-data">No bookings found.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>

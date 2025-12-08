@@ -1,0 +1,52 @@
+<div class="signup-container">
+    <div class="signup-card">
+        <div class="signup-header">
+            <h1>Create Account</h1>
+            <p>Join us for an exclusive experience.</p>
+            @if (errorMessage) {
+            <div class="error-banner">
+                {{ errorMessage }}
+            </div>
+            }
+        </div>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+            <div class="form-group">
+                <label for="username">Full Name</label>
+                <input type="text" id="username" formControlName="username" placeholder="Enter your full name"
+                    [class.error]="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">
+                @if (signupForm.get('username')?.invalid && signupForm.get('username')?.touched) {
+                <span class="error-msg">Name must be at least 3 characters.</span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" formControlName="email" placeholder="Enter your email"
+                    [class.error]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+                @if (signupForm.get('email')?.invalid && signupForm.get('email')?.touched) {
+                <span class="error-msg">Please enter a valid email.</span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-input-wrapper">
+                    <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                        placeholder="Create a password"
+                        [class.error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+                    <button type="button" class="toggle-password" (click)="togglePassword()">
+                        <span class="eye-icon">{{ showPassword ? '👁️' : '👁️‍🗨️' }}</span>
+                    </button>
+                </div>
+                @if (signupForm.get('password')?.invalid && signupForm.get('password')?.touched) {
+                <span class="error-msg">Password must be at least 6 characters.</span>
+                }
+            </div>
+
+            <button type="submit" class="submit-btn" [disabled]="signupForm.invalid">Sign Up</button>
+
+            <p class="login-link">Already have an account? <a routerLink="/login">Sign in</a></p>
+        </form>
+    </div>
+</div>

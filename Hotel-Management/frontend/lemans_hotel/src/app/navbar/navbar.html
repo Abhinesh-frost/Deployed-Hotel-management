@@ -1,0 +1,21 @@
+@if (showNavbar) {
+<header class="header">
+    <div class="header-content">
+        <div class="logo">
+            <h1><span class="le">Le</span> Mans Hotel</h1>
+            <p class="tagline">Premium Luxury Since 1890</p>
+        </div>
+        <nav class="nav">
+            <a routerLink="/home" class="nav-link" routerLinkActive="active">Home</a>
+            <a routerLink="/rooms" class="nav-link" routerLinkActive="active">Rooms</a>
+            <a routerLink="/dining" class="nav-link" routerLinkActive="active">Dining</a>
+            <a routerLink="/premium-services" class="nav-link" routerLinkActive="active">Services</a>
+            <a routerLink="/my-bookings" class="nav-link" routerLinkActive="active">My Bookings</a>
+            @if (isAdmin) {
+            <a routerLink="/admin/dashboard" class="nav-link" routerLinkActive="active">Admin</a>
+            }
+            <button (click)="logout()" class="logout-btn">Logout</button>
+        </nav>
+    </div>
+</header>
+}

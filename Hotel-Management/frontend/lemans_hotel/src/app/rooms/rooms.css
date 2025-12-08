@@ -1,0 +1,300 @@
+/* Modern Luxury Rooms - Le Méridien Inspired */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,600&display=swap');
+@import '../shared/home-header.css';
+
+:host {
+    display: block;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+.rooms-container {
+    min-height: 100vh;
+    background: #f9fafb;
+}
+
+/* Header */
+.rooms-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.header-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.rooms-header h1 {
+    font-family: 'Lora', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    letter-spacing: -1px;
+}
+
+.rooms-header p {
+    font-size: 18px;
+    color: #d1d5db;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Loading State */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    gap: 20px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-container p {
+    font-size: 16px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Error State */
+.error-container {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.debug-info {
+    color: #6b7280;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    background: #f3f4f6;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.retry-btn {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.retry-btn:hover {
+    background: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Rooms Grid */
+.rooms-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 32px;
+}
+
+/* Room Card */
+.room-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.room-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    border-color: #d1d5db;
+}
+
+/* Room Image */
+.room-image-container {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #f3f4f6;
+}
+
+.room-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.room-card:hover .room-image {
+    transform: scale(1.05);
+}
+
+.room-overlay {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.room-number {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Room Details */
+.room-details {
+    padding: 24px;
+}
+
+.room-type {
+    font-family: 'Lora', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.3px;
+}
+
+.room-description {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    min-height: 48px;
+}
+
+/* Room Footer */
+.room-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.price-section {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.price {
+    font-family: 'Lora', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.per-night {
+    font-size: 14px;
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.book-btn {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 0.3px;
+}
+
+.book-btn:hover {
+    background: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.empty-state h2 {
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+    font-weight: 600;
+}
+
+.empty-state p {
+    font-size: 16px;
+    color: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .rooms-header {
+        padding: 60px 20px;
+    }
+
+    .rooms-header h1 {
+        font-size: 36px;
+    }
+
+    .rooms-header p {
+        font-size: 16px;
+    }
+
+    .rooms-grid {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+        gap: 24px;
+    }
+
+    .room-type {
+        font-size: 20px;
+    }
+
+    .price {
+        font-size: 28px;
+    }
+}

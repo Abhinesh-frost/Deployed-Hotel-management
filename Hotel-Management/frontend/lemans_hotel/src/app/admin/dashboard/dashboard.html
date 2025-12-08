@@ -1,0 +1,125 @@
+﻿<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Le Mans</h2>
+            <p>Admin Panel</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+            <a routerLink="/admin/add-room" routerLinkActive="active">Add Room</a>
+            <a routerLink="/admin/add-offer" routerLinkActive="active">Add Offer</a>
+            <a (click)="logout()" class="logout-btn">Logout</a>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="dashboard-header">
+            <h1>Welcome, Admin</h1>
+            <p>Manage your hotel's premium offerings.</p>
+        </header>
+        <div class="analytics-grid">
+            <div class="stat-card revenue">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <h3>Total Revenue</h3>
+                    <p>${{ totalRevenue | number:'1.2-2' }}</p>
+                </div>
+            </div>
+            <div class="stat-card bookings" routerLink="/admin/bookings" style="cursor: pointer">
+                <div class="stat-icon">📅</div>
+                <div class="stat-info">
+                    <h3>Total Bookings</h3>
+                    <p>{{ totalBookings }}</p>
+                </div>
+            </div>
+            <div class="stat-card active">
+                <div class="stat-icon">🏨</div>
+                <div class="stat-info">
+                    <h3>Active Bookings</h3>
+                    <p>{{ activeBookings }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="dashboard-cards">
+                <div class="card" routerLink="/admin/manage-rooms">
+                    <div class="card-icon">🛏️</div>
+                    <h3>Manage Rooms</h3>
+                    <p>View, add and edit rooms.</p>
+                </div>
+                <div class="card" routerLink="/admin/add-offer">
+                    <div class="card-icon">🏷️</div>
+                    <h3>Manage Offers</h3>
+                    <p>Create special promotions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Active Offers</h2>
+            </div>
+            <div class="offers-grid">
+                @for (offer of offers; track offer.id) {
+                <div class="offer-card">
+                    <h3>{{ offer.title }}</h3>
+                    <p>{{ offer.description }}</p>
+                </div>
+                }
+                @if (offers.length === 0) {
+                <p class="no-data">No active offers.</p>
+                }
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Recent Bookings</h2>
+                <a routerLink="/admin/bookings" class="view-all-btn">View All Bookings →</a>
+            </div>
+
+            <div class="recent-bookings-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Guest</th>
+                            <th>Room</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (booking of recentBookings; track booking.id) {
+                        <tr>
+                            <td>#{{ booking.id }}</td>
+                            <td>{{ booking.noOfPerson }} Guests</td>
+                            <td>{{ booking.room.roomType || 'N/A' }}</td>
+                            <td>
+                                <span class="status-badge" [class]="booking.bookingStatus.toLowerCase()">
+                                    {{ booking.bookingStatus }}
+                                </span>
+                            </td>
+                            <td>${{ booking.totalCost }}</td>
+                            <td>
+                                @if (booking.bookingStatus === 'CONFIRMED' || booking.bookingStatus === 'PENDING') {
+                                <button class="cancel-btn" (click)="cancelBooking(booking.id)">Cancel</button>
+                                }
+                            </td>
+                        </tr>
+                        }
+                        @if (recentBookings.length === 0) {
+                        <tr>
+                            <td colspan="6" class="no-data">No recent bookings found.</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>

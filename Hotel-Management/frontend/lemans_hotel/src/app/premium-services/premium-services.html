@@ -1,0 +1,30 @@
+<div class="services-container">
+    <header class="page-header">
+        <div class="header-content-page">
+            <h1>Premium Services</h1>
+            <p>Exceeding Expectations, Every Moment</p>
+        </div>
+    </header>
+
+    <section class="intro-section">
+        <div class="intro-content">
+            <h2>At Your Service</h2>
+            <p>At Le Mans Hotel, we believe that true luxury lies in the details. Our premium services are designed to
+                ensure your stay is effortless, personalized, and truly exceptional.</p>
+        </div>
+    </section>
+
+    <section class="services-grid">
+        @for (service of services; track service.title) {
+        <div class="service-card">
+            <div class="service-icon">{{ service.icon }}</div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+        </div>
+        }
+    </section>
+
+    <div class="back-link">
+        <a routerLink="/home">← Back to Home</a>
+    </div>
+</div>

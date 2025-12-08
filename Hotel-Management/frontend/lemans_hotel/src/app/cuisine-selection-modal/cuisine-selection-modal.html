@@ -1,0 +1,32 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="close()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Select Your Dining Experience</h2>
+            <p class="subtitle">Choose a cuisine to complement your stay</p>
+            <button class="close-btn" (click)="close()">✕</button>
+        </div>
+
+        <div class="cuisines-grid">
+            @for (cuisine of cuisines; track cuisine.id) {
+            <div class="cuisine-card" (click)="selectCuisine(cuisine)">
+                <div class="cuisine-image">
+                    <img [src]="getImageUrl(cuisine.image)" [alt]="cuisine.name + ' Cuisine'">
+                </div>
+                <div class="cuisine-info">
+                    <h3>{{ cuisine.restaurant }}</h3>
+                    <span class="cuisine-type">{{ cuisine.name }} Cuisine</span>
+                    <p class="cuisine-description">{{ cuisine.description }}</p>
+                    <div class="specialties">
+                        <h4>Signature Dishes</h4>
+                        <ul>
+                            @for (dish of cuisine.specialties.slice(0, 3); track dish) {
+                            <li>{{ dish }}</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

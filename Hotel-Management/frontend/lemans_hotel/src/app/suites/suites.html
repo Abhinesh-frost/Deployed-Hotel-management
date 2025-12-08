@@ -1,0 +1,91 @@
+<div class="suites-container">
+    <header class="page-header">
+        <div class="header-content-page">
+            <h1>Premium Suites</h1>
+            <p>Experience Unparalleled Luxury</p>
+        </div>
+    </header>
+
+    <section class="intro-section">
+        <div class="intro-content">
+            <h2>Where Elegance Meets Comfort</h2>
+            <p>Our meticulously designed suites offer a sanctuary of sophistication. Each room is thoughtfully appointed
+                with premium amenities, curated art, and breathtaking views, ensuring an unforgettable stay.</p>
+        </div>
+    </section>
+
+    <section class="suites-grid">
+        @for (suite of suites; track suite.name) {
+        <div class="suite-card">
+            <div class="suite-header">
+                <h3>{{ suite.name }}</h3>
+                <span class="suite-size">{{ suite.size }}</span>
+            </div>
+            <p class="suite-description">{{ suite.description }}</p>
+            <div class="suite-features">
+                <h4>Features</h4>
+                <ul>
+                    @for (feature of suite.features; track feature) {
+                    <li>{{ feature }}</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        }
+    </section>
+
+    <section class="differentiation-section">
+        <h2>The Premium Difference</h2>
+        <div class="diff-grid">
+            <div class="diff-item">
+                <h3>Bespoke Design</h3>
+                <p>Every suite is individually designed with unique art pieces and custom furniture, ensuring no two
+                    stays are alike.</p>
+            </div>
+            <div class="diff-item">
+                <h3>Personalized Service</h3>
+                <p>From pre-arrival preferences to a dedicated butler, we tailor every aspect of your stay to your
+                    exacting standards.</p>
+            </div>
+            <div class="diff-item">
+                <h3>Exclusive Access</h3>
+                <p>Enjoy private access to the Executive Lounge, rooftop terrace, and priority reservations at our fine
+                    dining venues.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="view-all-container">
+        <button class="view-all-btn" routerLink="/rooms">View All Rooms</button>
+    </div>
+
+    <section class="amenities-section">
+        <h2>Suite Amenities</h2>
+        <div class="amenities-grid">
+            <div class="amenity-item">
+                <span class="amenity-icon">🛏️</span>
+                <h4>Premium Bedding</h4>
+                <p>Luxurious linens and pillows</p>
+            </div>
+            <div class="amenity-item">
+                <span class="amenity-icon">📺</span>
+                <h4>Entertainment</h4>
+                <p>Smart TV with streaming</p>
+            </div>
+            <div class="amenity-item">
+                <span class="amenity-icon">☕</span>
+                <h4>In-Room Dining</h4>
+                <p>24/7 room service</p>
+            </div>
+            <div class="amenity-item">
+                <span class="amenity-icon">🌡️</span>
+                <h4>Climate Control</h4>
+                <p>Personalized comfort</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="back-link">
+        <a routerLink="/home">← Back to Home</a>
+    </div>
+</div>

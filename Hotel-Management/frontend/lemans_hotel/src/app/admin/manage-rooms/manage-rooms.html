@@ -1,0 +1,50 @@
+<div class="manage-rooms-container">
+    <header class="page-header">
+        <div class="header-content">
+            <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+            <h1>Manage Rooms</h1>
+            <p>View and update all room listings</p>
+        </div>
+        <a routerLink="/admin/add-room" class="add-btn">+ Add New Room</a>
+    </header>
+
+    @if (loading) {
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading rooms...</p>
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="error-container">
+        <p class="error-message">{{ errorMessage }}</p>
+        <button (click)="loadRooms()" class="retry-btn">Retry</button>
+    </div>
+    }
+
+    @if (!loading && !errorMessage) {
+    <div class="rooms-grid">
+        @for (room of rooms; track room.id) {
+        <div class="room-card">
+            <div class="room-image">
+                <img [src]="getRoomImageUrl(room.id)" [alt]="room.roomType" (error)="onImageError($event)">
+            </div>
+            <div class="room-details">
+                <h3>{{ room.roomType }}</h3>
+                <p class="room-description">{{ room.description || 'No description available' }}</p>
+                <div class="room-info">
+                    <span class="price">${{ room.price }}/night</span>
+                    <span class="status" [class.available]="room.available">
+                        {{ room.available ? 'Available' : 'Occupied' }}
+                    </span>
+                </div>
+                <button (click)="editRoom(room.id)" class="edit-btn">Edit Room</button>
+            </div>
+        </div>
+        }
+        @if (rooms.length === 0) {
+        <p class="no-data">No rooms found. Add your first room!</p>
+        }
+    </div>
+    }
+</div>
