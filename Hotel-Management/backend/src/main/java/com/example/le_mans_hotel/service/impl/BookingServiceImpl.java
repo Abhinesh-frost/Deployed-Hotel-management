@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.le_mans_hotel.dto.BookingRequest;
 import com.example.le_mans_hotel.dto.BookingResponse;
@@ -117,6 +118,7 @@ public class BookingServiceImpl implements BookingService {
 
     
     @Override
+    @Transactional
     public Booking update(Long id,String status) {
     	  Booking booking = bookingRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("The Booking With this Id is Not Found."));
           booking.setBookingStatus(Enum.valueOf(BookingStatus.class, status));

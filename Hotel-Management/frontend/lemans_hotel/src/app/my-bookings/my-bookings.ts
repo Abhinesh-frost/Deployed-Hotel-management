@@ -60,154 +60,169 @@ export class MyBookings implements OnInit {
     }
 
     downloadPDF(booking: BookingResponse) {
-        const doc = new jsPDF();
+        try {
+            // Validate booking data
+            if (!booking || !booking.bookingId) {
+                console.error('Invalid booking data:', booking);
+                alert('Unable to generate PDF: Invalid booking data');
+                return;
+            }
 
-        // Elegant double border
-        doc.setDrawColor(184, 134, 11);
-        doc.setLineWidth(1.5);
-        doc.rect(10, 10, 190, 277);
-        doc.setLineWidth(0.5);
-        doc.rect(12, 12, 186, 273);
+            const doc = new jsPDF();
 
-        // Hotel Name
-        doc.setFontSize(28);
-        doc.setTextColor(25, 25, 25);
-        doc.setFont('helvetica', 'bold');
-        doc.text('LE MANS HOTEL', 105, 30, { align: 'center' });
+            // Elegant double border
+            doc.setDrawColor(184, 134, 11);
+            doc.setLineWidth(1.5);
+            doc.rect(10, 10, 190, 277);
+            doc.setLineWidth(0.5);
+            doc.rect(12, 12, 186, 273);
 
-        doc.setFontSize(10);
-        doc.setTextColor(100, 100, 100);
-        doc.setFont('helvetica', 'italic');
-        doc.text('Premium Luxury Since 1890', 105, 38, { align: 'center' });
+            // Hotel Name
+            doc.setFontSize(28);
+            doc.setTextColor(25, 25, 25);
+            doc.setFont('helvetica', 'bold');
+            doc.text('LE MANS HOTEL', 105, 30, { align: 'center' });
 
-        // Decorative line
-        doc.setDrawColor(184, 134, 11);
-        doc.setLineWidth(0.8);
-        doc.line(40, 43, 170, 43);
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.setFont('helvetica', 'italic');
+            doc.text('Premium Luxury Since 1890', 105, 38, { align: 'center' });
 
-        // Receipt Title
-        doc.setFontSize(16);
-        doc.setTextColor(25, 25, 25);
-        doc.setFont('helvetica', 'bold');
-        doc.text('BOOKING RECEIPT', 105, 53, { align: 'center' });
+            // Decorative line
+            doc.setDrawColor(184, 134, 11);
+            doc.setLineWidth(0.8);
+            doc.line(40, 43, 170, 43);
 
-        // Booking ID Box
-        doc.setFillColor(245, 245, 245);
-        doc.roundedRect(20, 60, 170, 12, 2, 2, 'F');
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'bold');
-        doc.text(`Booking ID: #${booking.bookingId}`, 105, 68, { align: 'center' });
+            // Receipt Title
+            doc.setFontSize(16);
+            doc.setTextColor(25, 25, 25);
+            doc.setFont('helvetica', 'bold');
+            doc.text('BOOKING RECEIPT', 105, 53, { align: 'center' });
 
-        // Status Badge
-        let statusColor = [158, 158, 158];
-        const status = booking.status.toUpperCase();
-        if (status === 'CONFIRMED') statusColor = [76, 175, 80];
-        else if (status === 'PENDING') statusColor = [255, 193, 7];
-        else if (status === 'CANCELLED') statusColor = [244, 67, 54];
+            // Booking ID Box
+            doc.setFillColor(245, 245, 245);
+            doc.roundedRect(20, 60, 170, 12, 2, 2, 'F');
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Booking ID: #${booking.bookingId}`, 105, 68, { align: 'center' });
 
-        doc.setFillColor(statusColor[0], statusColor[1], statusColor[2]);
-        doc.roundedRect(75, 76, 60, 8, 2, 2, 'F');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        doc.setFont('helvetica', 'bold');
-        doc.text(status, 105, 81, { align: 'center' });
+            // Status Badge
+            let statusColor = [158, 158, 158];
+            const status = (booking.status || 'PENDING').toUpperCase();
+            if (status === 'CONFIRMED') statusColor = [76, 175, 80];
+            else if (status === 'PENDING') statusColor = [255, 193, 7];
+            else if (status === 'CANCELLED') statusColor = [244, 67, 54];
 
-        // Details Section
-        let yPos = 95;
-        const leftCol = 25;
+            doc.setFillColor(statusColor[0], statusColor[1], statusColor[2]);
+            doc.roundedRect(75, 76, 60, 8, 2, 2, 'F');
+            doc.setFontSize(9);
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.text(status, 105, 81, { align: 'center' });
 
-        doc.setFontSize(12);
-        doc.setTextColor(184, 134, 11);
-        doc.setFont('helvetica', 'bold');
-        doc.text('BOOKING DETAILS', leftCol, yPos);
-        doc.setDrawColor(184, 134, 11);
-        doc.setLineWidth(0.5);
-        doc.line(leftCol, yPos + 2, 185, yPos + 2);
-        yPos += 12;
+            // Details Section
+            let yPos = 95;
+            const leftCol = 25;
 
-        // Room
-        if (booking.roomName && booking.roomName !== 'N/A') {
+            doc.setFontSize(12);
+            doc.setTextColor(184, 134, 11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('BOOKING DETAILS', leftCol, yPos);
+            doc.setDrawColor(184, 134, 11);
+            doc.setLineWidth(0.5);
+            doc.line(leftCol, yPos + 2, 185, yPos + 2);
+            yPos += 12;
+
+            // Room
+            if (booking.roomName && booking.roomName !== 'N/A') {
+                doc.setFontSize(10);
+                doc.setTextColor(100, 100, 100);
+                doc.setFont('helvetica', 'normal');
+                doc.text('Room Type:', leftCol, yPos);
+                doc.setTextColor(25, 25, 25);
+                doc.setFont('helvetica', 'bold');
+                doc.text(booking.roomName, leftCol, yPos + 6);
+                yPos += 16;
+            }
+
+            // Cuisine
+            if (booking.cuisineType && booking.cuisineType !== 'N/A') {
+                doc.setFontSize(10);
+                doc.setTextColor(100, 100, 100);
+                doc.setFont('helvetica', 'normal');
+                doc.text('Cuisine:', leftCol, yPos);
+                doc.setTextColor(25, 25, 25);
+                doc.setFont('helvetica', 'bold');
+                doc.text(booking.cuisineType, leftCol, yPos + 6);
+                yPos += 16;
+            }
+
+
+            // Dates
             doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
             doc.setFont('helvetica', 'normal');
-            doc.text('Room Type:', leftCol, yPos);
+            doc.text('Check-in Date:', leftCol, yPos);
             doc.setTextColor(25, 25, 25);
             doc.setFont('helvetica', 'bold');
-            doc.text(booking.roomName, leftCol, yPos + 6);
+            doc.text(booking.checkInDate || 'N/A', leftCol, yPos + 6);
             yPos += 16;
-        }
 
-        // Cuisine
-        if (booking.cuisineType && booking.cuisineType !== 'N/A') {
             doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
             doc.setFont('helvetica', 'normal');
-            doc.text('Cuisine:', leftCol, yPos);
+            doc.text('Check-out Date:', leftCol, yPos);
             doc.setTextColor(25, 25, 25);
             doc.setFont('helvetica', 'bold');
-            doc.text(booking.cuisineType, leftCol, yPos + 6);
+            doc.text(booking.checkOutDate || 'N/A', leftCol, yPos + 6);
             yPos += 16;
+
+            // Guests
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Number of Guests:', leftCol, yPos);
+            doc.setTextColor(25, 25, 25);
+            doc.setFont('helvetica', 'bold');
+            const guests = booking.noOfPerson || 1;
+            doc.text(`${guests} ${guests === 1 ? 'Person' : 'Persons'}`, leftCol, yPos + 6);
+            yPos += 20;
+
+            // Total Cost Box
+            doc.setFillColor(255, 250, 240);
+            doc.setDrawColor(184, 134, 11);
+            doc.setLineWidth(1);
+            doc.roundedRect(20, yPos, 170, 20, 3, 3, 'FD');
+            doc.setFontSize(12);
+            doc.setTextColor(184, 134, 11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('TOTAL AMOUNT', 30, yPos + 8);
+            doc.setFontSize(18);
+            doc.setTextColor(25, 25, 25);
+            const totalCost = booking.totalCost || 0;
+            doc.text(`$${totalCost.toFixed(2)}`, 180, yPos + 13, { align: 'right' });
+
+            // Footer
+            yPos = 260;
+            doc.setDrawColor(184, 134, 11);
+            doc.setLineWidth(0.5);
+            doc.line(20, yPos, 190, yPos);
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.setFont('helvetica', 'italic');
+            doc.text('Thank you for choosing Le Mans Hotel', 105, yPos + 8, { align: 'center' });
+            doc.text('We look forward to welcoming you', 105, yPos + 14, { align: 'center' });
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Le Mans Hotel | Premium Luxury Since 1890', 105, yPos + 22, { align: 'center' });
+
+            doc.save(`Le-Mans-Hotel-Booking-${booking.bookingId}.pdf`);
+            console.log('✅ PDF generated successfully for booking:', booking.bookingId);
+        } catch (error) {
+            console.error('❌ Error generating PDF:', error);
+            alert('Failed to generate PDF receipt. Please try again or contact support.');
         }
-
-
-        // Dates
-        doc.setFontSize(10);
-        doc.setTextColor(100, 100, 100);
-        doc.setFont('helvetica', 'normal');
-        doc.text('Check-in Date:', leftCol, yPos);
-        doc.setTextColor(25, 25, 25);
-        doc.setFont('helvetica', 'bold');
-        doc.text(booking.checkInDate, leftCol, yPos + 6);
-        yPos += 16;
-
-        doc.setFontSize(10);
-        doc.setTextColor(100, 100, 100);
-        doc.setFont('helvetica', 'normal');
-        doc.text('Check-out Date:', leftCol, yPos);
-        doc.setTextColor(25, 25, 25);
-        doc.setFont('helvetica', 'bold');
-        doc.text(booking.checkOutDate, leftCol, yPos + 6);
-        yPos += 16;
-
-        // Guests
-        doc.setFontSize(10);
-        doc.setTextColor(100, 100, 100);
-        doc.setFont('helvetica', 'normal');
-        doc.text('Number of Guests:', leftCol, yPos);
-        doc.setTextColor(25, 25, 25);
-        doc.setFont('helvetica', 'bold');
-        doc.text(`${booking.noOfPerson} ${booking.noOfPerson === 1 ? 'Person' : 'Persons'}`, leftCol, yPos + 6);
-        yPos += 20;
-
-        // Total Cost Box
-        doc.setFillColor(255, 250, 240);
-        doc.setDrawColor(184, 134, 11);
-        doc.setLineWidth(1);
-        doc.roundedRect(20, yPos, 170, 20, 3, 3, 'FD');
-        doc.setFontSize(12);
-        doc.setTextColor(184, 134, 11);
-        doc.setFont('helvetica', 'bold');
-        doc.text('TOTAL AMOUNT', 30, yPos + 8);
-        doc.setFontSize(18);
-        doc.setTextColor(25, 25, 25);
-        doc.text(`$${booking.totalCost.toFixed(2)}`, 180, yPos + 13, { align: 'right' });
-
-        // Footer
-        yPos = 260;
-        doc.setDrawColor(184, 134, 11);
-        doc.setLineWidth(0.5);
-        doc.line(20, yPos, 190, yPos);
-        doc.setFontSize(9);
-        doc.setTextColor(100, 100, 100);
-        doc.setFont('helvetica', 'italic');
-        doc.text('Thank you for choosing Le Mans Hotel', 105, yPos + 8, { align: 'center' });
-        doc.text('We look forward to welcoming you', 105, yPos + 14, { align: 'center' });
-        doc.setFontSize(8);
-        doc.setFont('helvetica', 'normal');
-        doc.text('Le Mans Hotel | Premium Luxury Since 1890', 105, yPos + 22, { align: 'center' });
-
-        doc.save(`Le-Mans-Hotel-Booking-${booking.bookingId}.pdf`);
     }
 
     logout() {
