@@ -17,6 +17,9 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     login(email: string, password: string): Observable<AuthResponse> {
+        // Clear any existing expired token before login
+        this.logout();
+
         return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
             tap(response => {
                 if (response.token) {
@@ -26,6 +29,7 @@ export class AuthService {
             })
         );
     }
+
 
     register(username: string, email: string, password: string): Observable<any> {
         return this.http.post(`${this.apiUrl}/register`, { username, email, password }, { responseType: 'text' });

@@ -11,29 +11,20 @@ export interface BookingRequest {
 }
 
 export interface BookingResponse {
-    id: number;
-    bookingStatus: string;
+    bookingId: number;
+    status: string;
     totalCost: number;
-    message?: string;
     checkInDate: string;
     checkOutDate: string;
     noOfPerson: number;
-    room: {
-        id: number;
-        roomType: string;
-        price: number;
-        description?: string;
-        available?: boolean;
-    };
-    dish: {
-        id: number;
-        cuisineName: string;
-        pricePerPerson: number;
-        description?: string;
-    };
+    roomName: string;
+    cuisineType: string;
     userName?: string;
     userEmail?: string;
 }
+
+
+
 
 
 @Injectable({

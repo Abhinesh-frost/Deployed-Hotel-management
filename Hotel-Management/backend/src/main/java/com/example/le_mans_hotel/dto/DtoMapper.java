@@ -16,13 +16,16 @@ public class DtoMapper {
     public static BookingResponse toBookingResponse(Booking booking) {
         return BookingResponse.builder()
                 .bookingId(booking.getId())
-                .cuisineType(booking.getDish().getCuisineName())
+
+                .cuisineType(booking.getDish() != null ? booking.getDish().getCuisineName() : "N/A")
                 .totalCost(booking.getTotalCost())
                 .status(booking.getBookingStatus())
                 .checkInDate(booking.getCheckInDate())
                 .checkOutDate(booking.getCheckOutDate())
-                .userName(booking.getUser().getName())
-                .userEmail(booking.getUser().getEmail())
+                .noOfPerson(booking.getNoOfPerson())
+                .roomName(booking.getRoom() != null ? booking.getRoom().getRoomType() : "N/A")
+                .userName(booking.getUser() != null ? booking.getUser().getName() : "Unknown")
+                .userEmail(booking.getUser() != null ? booking.getUser().getEmail() : "N/A")
                 .build();
 
     }

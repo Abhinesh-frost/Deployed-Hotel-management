@@ -35,9 +35,9 @@
                 </tr>
             </thead>
             <tbody>
-                @for (booking of bookings; track booking.id) {
+                @for (booking of bookings; track booking.bookingId) {
                 <tr>
-                    <td>#{{ booking.id }}</td>
+                    <td>#{{ booking.bookingId }}</td>
                     <td>
                         <div class="guest-info">
                             <div class="user-details">
@@ -51,9 +51,10 @@
 
                     <td>
                         <div class="room-info">
-                            <span class="room-type">🏨 {{ booking.room.roomType || 'N/A' }}</span>
-                            <span class="cuisine-name">🍽️ {{ booking.dish.cuisineName || 'N/A' }}</span>
+                            <span class="room-type">🏨 {{ booking.roomName || 'N/A' }}</span>
+                            <span class="cuisine-name">🍽️ {{ booking.cuisineType || 'N/A' }}</span>
                         </div>
+
                     </td>
                     <td>
                         <div class="date-info">
@@ -62,30 +63,31 @@
                         </div>
                     </td>
                     <td>
-                        <span class="status-badge" [class]="booking.bookingStatus.toLowerCase()">
-                            {{ booking.bookingStatus }}
+                        <span class="status-badge" [class]="(booking.status + '').toLowerCase()">
+                            {{ booking.status }}
+
                         </span>
                     </td>
                     <td>
                         <div class="actions">
-                            @if (booking.bookingStatus === 'PENDING') {
-                            <button (click)="updateStatus(booking.id, 'CONFIRMED')" class="action-btn approve"
+                            @if (booking.status === 'PENDING') {
+                            <button (click)="updateStatus(booking.bookingId, 'CONFIRMED')" class="action-btn approve"
                                 title="Approve">
                                 ✅
                             </button>
-                            <button (click)="updateStatus(booking.id, 'CANCELLED')" class="action-btn reject"
+                            <button (click)="updateStatus(booking.bookingId, 'CANCELLED')" class="action-btn reject"
                                 title="Reject">
                                 ❌
                             </button>
                             }
-                            @if (booking.bookingStatus === 'CONFIRMED') {
-                            <button (click)="updateStatus(booking.id, 'CANCELLED')" class="action-btn reject"
+                            @if (booking.status === 'CONFIRMED') {
+                            <button (click)="updateStatus(booking.bookingId, 'CANCELLED')" class="action-btn reject"
                                 title="Cancel Booking">
                                 ❌
                             </button>
                             }
-                            @if (booking.bookingStatus === 'CHECKED_IN') {
-                            <button (click)="updateStatus(booking.id, 'CHECKED_OUT')" class="action-btn checkout"
+                            @if (booking.status === 'CHECKED_IN') {
+                            <button (click)="updateStatus(booking.bookingId, 'CHECKED_OUT')" class="action-btn checkout"
                                 title="Check Out">
                                 👋 Out
                             </button>

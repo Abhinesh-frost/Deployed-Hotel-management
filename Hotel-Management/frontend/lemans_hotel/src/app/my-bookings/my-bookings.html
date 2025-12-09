@@ -31,38 +31,39 @@
         </div>
         } @else {
         <div class="bookings-grid">
-            @for (booking of bookings; track booking.id) {
+            @for (booking of bookings; track booking.bookingId) {
             <div class="booking-card">
                 <div class="booking-header">
                     <div class="booking-id">
                         <span class="label">Booking ID</span>
-                        <span class="value">#{{ booking.id }}</span>
+                        <span class="value">#{{ booking.bookingId }}</span>
                     </div>
-                    <span class="booking-status" [ngClass]="getStatusClass(booking.bookingStatus)">
-                        {{ booking.bookingStatus }}
+                    <span class="booking-status" [ngClass]="getStatusClass(booking.status)">
+                        {{ booking.status }}
                     </span>
                 </div>
 
                 <div class="booking-details">
-                    @if (booking.room) {
+                    @if (booking.roomName && booking.roomName !== 'N/A') {
                     <div class="detail-row">
                         <span class="icon">🏨</span>
                         <div class="detail-info">
                             <span class="detail-label">Room</span>
-                            <span class="detail-value">{{ booking.room.roomType }}</span>
+                            <span class="detail-value">{{ booking.roomName }}</span>
                         </div>
                     </div>
                     }
 
-                    @if (booking.dish) {
+                    @if (booking.cuisineType && booking.cuisineType !== 'N/A') {
                     <div class="detail-row">
                         <span class="icon">🍽️</span>
                         <div class="detail-info">
                             <span class="detail-label">Cuisine</span>
-                            <span class="detail-value">{{ booking.dish.cuisineName }}</span>
+                            <span class="detail-value">{{ booking.cuisineType }}</span>
                         </div>
                     </div>
                     }
+
 
                     <div class="detail-row">
                         <span class="icon">📅</span>

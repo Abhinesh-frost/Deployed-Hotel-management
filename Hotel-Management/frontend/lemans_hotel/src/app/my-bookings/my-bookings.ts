@@ -97,11 +97,11 @@ export class MyBookings implements OnInit {
         doc.setFontSize(11);
         doc.setTextColor(0, 0, 0);
         doc.setFont('helvetica', 'bold');
-        doc.text(`Booking ID: #${booking.id}`, 105, 68, { align: 'center' });
+        doc.text(`Booking ID: #${booking.bookingId}`, 105, 68, { align: 'center' });
 
         // Status Badge
         let statusColor = [158, 158, 158];
-        const status = booking.bookingStatus.toUpperCase();
+        const status = booking.status.toUpperCase();
         if (status === 'CONFIRMED') statusColor = [76, 175, 80];
         else if (status === 'PENDING') statusColor = [255, 193, 7];
         else if (status === 'CANCELLED') statusColor = [244, 67, 54];
@@ -127,28 +127,29 @@ export class MyBookings implements OnInit {
         yPos += 12;
 
         // Room
-        if (booking.room?.roomType) {
+        if (booking.roomName && booking.roomName !== 'N/A') {
             doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
             doc.setFont('helvetica', 'normal');
             doc.text('Room Type:', leftCol, yPos);
             doc.setTextColor(25, 25, 25);
             doc.setFont('helvetica', 'bold');
-            doc.text(booking.room.roomType, leftCol, yPos + 6);
+            doc.text(booking.roomName, leftCol, yPos + 6);
             yPos += 16;
         }
 
         // Cuisine
-        if (booking.dish?.cuisineName) {
+        if (booking.cuisineType && booking.cuisineType !== 'N/A') {
             doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
             doc.setFont('helvetica', 'normal');
             doc.text('Cuisine:', leftCol, yPos);
             doc.setTextColor(25, 25, 25);
             doc.setFont('helvetica', 'bold');
-            doc.text(booking.dish.cuisineName, leftCol, yPos + 6);
+            doc.text(booking.cuisineType, leftCol, yPos + 6);
             yPos += 16;
         }
+
 
         // Dates
         doc.setFontSize(10);
@@ -206,7 +207,7 @@ export class MyBookings implements OnInit {
         doc.setFont('helvetica', 'normal');
         doc.text('Le Mans Hotel | Premium Luxury Since 1890', 105, yPos + 22, { align: 'center' });
 
-        doc.save(`Le-Mans-Hotel-Booking-${booking.id}.pdf`);
+        doc.save(`Le-Mans-Hotel-Booking-${booking.bookingId}.pdf`);
     }
 
     logout() {

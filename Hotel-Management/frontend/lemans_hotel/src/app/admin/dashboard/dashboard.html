@@ -94,20 +94,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (booking of recentBookings; track booking.id) {
+                        @for (booking of recentBookings; track booking.bookingId) {
                         <tr>
-                            <td>#{{ booking.id }}</td>
+                            <td>#{{ booking.bookingId }}</td>
                             <td>{{ booking.noOfPerson }} Guests</td>
-                            <td>{{ booking.room.roomType || 'N/A' }}</td>
+                            <td>{{ booking.roomName || 'N/A' }}</td>
+
                             <td>
-                                <span class="status-badge" [class]="booking.bookingStatus.toLowerCase()">
-                                    {{ booking.bookingStatus }}
+                                <span class="status-badge" [class]="booking.status.toLowerCase()">
+                                    {{ booking.status }}
                                 </span>
                             </td>
                             <td>${{ booking.totalCost }}</td>
                             <td>
-                                @if (booking.bookingStatus === 'CONFIRMED' || booking.bookingStatus === 'PENDING') {
-                                <button class="cancel-btn" (click)="cancelBooking(booking.id)">Cancel</button>
+                                @if (booking.status === 'CONFIRMED' || booking.status === 'PENDING') {
+                                <button class="cancel-btn" (click)="cancelBooking(booking.bookingId)">Cancel</button>
                                 }
                             </td>
                         </tr>

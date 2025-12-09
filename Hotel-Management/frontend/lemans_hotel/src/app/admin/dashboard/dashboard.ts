@@ -40,7 +40,8 @@ export class Dashboard implements OnInit {
       next: (bookings) => {
         this.totalBookings = bookings.length;
         this.totalRevenue = bookings.reduce((sum, booking) => sum + booking.totalCost, 0);
-        this.activeBookings = bookings.filter(b => b.bookingStatus === 'CONFIRMED').length;
+        this.activeBookings = bookings.filter(b => b.status === 'CONFIRMED').length;
+
         this.recentBookings = bookings.slice(0, 5); // Get first 5
         this.loading = false;
       },

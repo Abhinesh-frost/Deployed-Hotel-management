@@ -47,9 +47,11 @@ export class AdminBookings implements OnInit {
         this.bookingService.updateBookingStatus(bookingId, status).subscribe({
           next: () => {
             // Update local state
-            const booking = this.bookings.find(b => b.id === bookingId);
+            const booking = this.bookings.find(b => b.bookingId === bookingId);
+
             if (booking) {
-              booking.bookingStatus = status;
+              booking.status = status;
+
             }
             this.popupService.showSuccess(`Booking marked as ${status}`);
           },
